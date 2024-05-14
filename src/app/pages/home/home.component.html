@@ -1,6 +1,10 @@
-<h2>Olympic games app</h2>
+<p>Medals per Country</p>
 <hr />
-<p>{{ (olympics$ | async) }} data loaded</p>
+<p>Number of JOs </p>
+<p>Number of countries {{numberOfCountries$ | async}}</p>
+
+<!-- <p>{{ (olympics$ | async) }} data loaded</p> -->
+
 <li *ngFor="let olympic of olympics$ | async">
     {{olympic.country}}
 

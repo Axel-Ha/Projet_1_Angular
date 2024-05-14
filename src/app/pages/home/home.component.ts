@@ -10,11 +10,12 @@ import { Olympic } from 'src/app/core/models/Olympic';
 })
 export class HomeComponent implements OnInit {
   public olympics$: Observable<Olympic[]> = of([]);
-
+  public numberOfCountries$! : Observable<number>;
   constructor(private olympicService: OlympicService) {}
 
   ngOnInit(): void {
     this.olympics$ = this.olympicService.getOlympics();
-    console.log(this.olympics$);
+    this.numberOfCountries$ = this.olympicService.getNumberOfCountries();
+
   }
 }
