@@ -8,6 +8,7 @@ import { Olympic } from '../models/Olympic';
   providedIn: 'root',
 })
 export class OlympicService {
+
   private olympicUrl = './assets/mock/olympic.json';
   private olympics$ = new BehaviorSubject<Olympic[]>([]);
   constructor(private http: HttpClient) {}
@@ -25,12 +26,34 @@ export class OlympicService {
     );
   }
 
-  getNumberOfCountries() {
+  getNumberOfCountries() : Observable<number>{
     return this.olympics$.pipe(map(
       countries => countries.length
     ));
   }
 
+  getCountryById(countryId: number) : Observable<Olympic> {
+    return this.olympics$.pipe(
+      map(countries => {
+        const country = countries.find(country => country.id === countryId);
+        if (country) {
+          const updatedCountry = {
+            ...country,
+            numberOfParticipation : country.participations.length
+          }
+          return updatedCountry ;
+        }
+        return { id: -1, country: 'Not Found', participations: [], numberOfParticipation: 0 }; // Objet par défaut
+      })
+    );
+  }
+  
+
+  getNumberOfJOs() : Observable<number[]>{
+    return this.olympics$.pipe(map(
+      countries => countries.map(country => country.participations.length).slice(0, 1)
+    ));
+  }
 
   getOlympics() : Observable<Olympic[]>{
     return this.olympics$.asObservable();

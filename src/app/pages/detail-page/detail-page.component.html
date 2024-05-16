@@ -1,0 +1,14 @@
+<p>detail-page works!</p>
+
+<div *ngIf="(country$ | async) as country">
+    <p>{{country | json}} </p>
+    <p>Country {{country.country}}</p>
+    <p>Number of entries {{country.numberOfParticipation}}</p>
+    <li *ngFor="let participations  of country.participations ">
+        <!-- <ul>Number of entries {{country.numberOfParticipation }}</ul> -->
+        <ul>Total number medals {{participations.medalsCount | json  }}</ul>
+        <ul>Total number of athletes {{participations.athleteCount | json  }}</ul>
+    </li>
+</div>
+
+<a routerLink="">Go back</a>
