@@ -1,12 +1,10 @@
 <p>Medals per Country</p>
 <hr />
-<p>Number of JOs </p>
+<p>Number of JOs {{numberOfJOs$ | async }}  </p>
 <p>Number of countries {{numberOfCountries$ | async}}</p>
 
-<!-- <p>{{ (olympics$ | async) }} data loaded</p> -->
-
 <li *ngFor="let olympic of olympics$ | async">
-    {{olympic.country}}
+    <a routerLink="detail/{{olympic.id}}">{{olympic.country}}</a>
 
     <ul>
         <li *ngFor="let country of olympic.participations">

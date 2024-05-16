@@ -10,7 +10,8 @@ import { OlympicService } from 'src/app/core/services/olympic.service';
   styleUrls: ['./detail-page.component.scss']
 })
 export class DetailPageComponent implements OnInit {
-
+  totalMedals?: Observable<number>
+  totalAthletes?: Observable<number>
   country$!: Observable<Olympic>; 
   constructor(private olympicService: OlympicService,
               private route : ActivatedRoute) { }
@@ -18,5 +19,8 @@ export class DetailPageComponent implements OnInit {
   ngOnInit(): void {
     const countryId = +this.route.snapshot.params['id']
     this.country$ = this.olympicService.getCountryById(countryId);
+    this.totalMedals = this.olympicService.getTotalMedals(countryId);
+    this.totalAthletes = this.olympicService.getTotalAthletes(countryId);
+  
   }
 }

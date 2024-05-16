@@ -48,6 +48,28 @@ export class OlympicService {
     );
   }
   
+  getTotalMedals( countryId: number) : Observable<number> {
+    const currentCountry = this.getCountryById(countryId);
+    return currentCountry.pipe(map(
+      country => {
+        return country.participations.reduce((totalMedals, participation) => {
+          return totalMedals + participation.medalsCount;
+        }, 0);
+      }
+    ));
+  }
+
+  getTotalAthletes(countryId: number) {
+    const currentCountry = this.getCountryById(countryId);
+    return currentCountry.pipe(map(
+      country => {
+        return country.participations.reduce((totalAthletes, participation) => {
+          return totalAthletes + participation.athleteCount;
+        }, 0);
+      }
+    ));
+  }
+
 
   getNumberOfJOs() : Observable<number[]>{
     return this.olympics$.pipe(map(
