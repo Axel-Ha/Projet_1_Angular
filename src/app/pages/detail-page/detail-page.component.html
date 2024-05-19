@@ -1,8 +1,10 @@
-<div *ngIf="country$ | async as country">
-  <p>Country {{ country.country }}</p>
-  <p>Number of entries {{ country.numberOfParticipation }}</p>
-  <p>Total number medals {{ totalMedals | async }}</p>
-  <p>Total number medals {{ totalAthletes | async }}</p>
+<div class="container" *ngIf="country$ | async as country">
+  <h2>Country {{ country.country }}</h2>
+  <div class="stat-box">
+    <p class="stat">Number of entries <span>{{ country.numberOfParticipation }}</span></p>
+    <p class="stat">Total number medals <span>{{ totalMedals | async }}</span></p>
+    <p class="stat">Total number medals <span>{{ totalAthletes | async }}</span></p>
+  </div>
+  <a routerLink="">Go back</a>
 </div>
 
-<a routerLink="">Go back</a>

@@ -1,17 +1,20 @@
-<p>Medals per Country</p>
-<hr />
-<p>Number of JOs {{numberOfJOs$ | async }}  </p>
-<p>Number of countries {{numberOfCountries$ | async}}</p>
 
-<li *ngFor="let olympic of olympics$ | async">
-    <a routerLink="detail/{{olympic.id}}">{{olympic.country}}</a>
-
-    <ul>
-        <li *ngFor="let country of olympic.participations">
-            <p> ville {{country.city}} </p>
-            <p> année {{country.year}} </p>
-            <p> nombre de médailles {{country.medalsCount}} </p>
-            <p> nombre d'athlete {{country.athleteCount}} </p>
-        </li>
-    </ul>
-</li>
+<div class="container">
+    <h2 class="container-title">Medals per Country</h2>
+    <div class="stat-box">
+        <p class="stat">Number of JOs <span>{{numberOfJOs$ | async }}</span>  </p>
+        <p class="stat">Number of countries <span>{{numberOfCountries$ | async}}</span></p>
+    </div>
+    
+    <li *ngFor="let olympic of olympics$ | async">
+        <a routerLink="detail/{{olympic.id}}">{{olympic.country}}</a>
+        <!-- <ul>
+            <li *ngFor="let country of olympic.participations">
+                <p> ville {{country.city}} </p>
+                <p> année {{country.year}} </p>
+                <p> nombre de médailles {{country.medalsCount}} </p>
+                <p> nombre d'athlete {{country.athleteCount}} </p>
+            </li>
+        </ul> -->
+    </li>
+</div>
