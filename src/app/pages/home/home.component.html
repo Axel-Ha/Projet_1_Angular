@@ -1,20 +1,28 @@
-
 <div class="container">
-    <h2 class="container-title">Medals per Country</h2>
-    <div class="stat-box">
-        <p class="stat">Number of JOs <span>{{numberOfJOs$ | async }}</span>  </p>
-        <p class="stat">Number of countries <span>{{numberOfCountries$ | async}}</span></p>
-    </div>
-    
-    <li *ngFor="let olympic of olympics$ | async">
-        <a routerLink="detail/{{olympic.id}}">{{olympic.country}}</a>
-        <!-- <ul>
-            <li *ngFor="let country of olympic.participations">
-                <p> ville {{country.city}} </p>
-                <p> année {{country.year}} </p>
-                <p> nombre de médailles {{country.medalsCount}} </p>
-                <p> nombre d'athlete {{country.athleteCount}} </p>
-            </li>
-        </ul> -->
-    </li>
+  <h2 class="container-title">Medals per Country</h2>
+  <div class="stat-box">
+    <p class="stat">
+      Number of JOs <span>{{ numberOfJOs$ | async }}</span>
+    </p>
+    <p class="stat">
+      Number of countries <span>{{ numberOfCountries$ | async }}</span>
+    </p>
+  </div>
+  <ngx-charts-pie-chart
+  [view]="[700, 400]"
+  [results]="single"
+  [scheme]="colorScheme"
+  [legend]="showLegend"
+  [gradient]="gradient"
+  [legendPosition]="legendPosition"
+  [labels]="showLabels"
+  [doughnut]="isDoughnut"
+  (select)="onSelect($event)"
+  (activate)="onActivate($event)"
+  (deactivate)="onDeactivate($event)"
+>
+</ngx-charts-pie-chart>
+  <li *ngFor="let olympic of olympics$ | async">
+    <a routerLink="detail/{{ olympic.id }}">{{ olympic.country }}</a>
+  </li>
 </div>
