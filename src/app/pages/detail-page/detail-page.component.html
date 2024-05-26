@@ -3,8 +3,23 @@
   <div class="stat-box">
     <p class="stat">Number of entries <span>{{ country.numberOfParticipation }}</span></p>
     <p class="stat">Total number medals <span>{{ totalMedals | async }}</span></p>
-    <p class="stat">Total number medals <span>{{ totalAthletes | async }}</span></p>
+    <p class="stat">Total number of athletes <span>{{ totalAthletes | async }}</span></p>
   </div>
-  <a routerLink="">Go back</a>
 </div>
+<ngx-charts-line-chart
+  [results]="detailsCountry$"
+  [view]="[700, 400]"
+  [scheme]="colorScheme"
+  [legend]="legend"
+  [showXAxisLabel]="showXAxisLabel"
+  [showYAxisLabel]="showYAxisLabel"
+  [xAxis]="xAxis"
+  [yAxis]="yAxis"
+  [xAxisLabel]="xAxisLabel"
+  [yAxisLabel]="yAxisLabel"
+  [timeline]="timeline"
+  (select)="onSelect($event)"
+  >
+</ngx-charts-line-chart>
+  <a routerLink="">Go back</a>
 

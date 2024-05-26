@@ -7,20 +7,56 @@ import { OlympicService } from 'src/app/core/services/olympic.service';
 @Component({
   selector: 'app-detail-page',
   templateUrl: './detail-page.component.html',
-  styleUrls: ['./detail-page.component.scss']
+  styleUrls: ['./detail-page.component.scss'],
 })
 export class DetailPageComponent implements OnInit {
-  totalMedals?: Observable<number>
-  totalAthletes?: Observable<number>
-  country$!: Observable<Olympic>; 
-  constructor(private olympicService: OlympicService,
-              private route : ActivatedRoute) { }
+  public totalMedals?: Observable<number>;
+  public totalAthletes?: Observable<number>;
+  public country$!: Observable<Olympic>;
+  public countryId!: number;
+  public countryName!: string;
+  public detailsCountry$!: { name: string; series: { name: string; value: number }[] }[];
+  constructor(
+    private olympicService: OlympicService,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
-    const countryId = +this.route.snapshot.params['id']
-    this.country$ = this.olympicService.getCountryById(countryId);
-    this.totalMedals = this.olympicService.getTotalMedals(countryId);
-    this.totalAthletes = this.olympicService.getTotalAthletes(countryId);
+    this.countryId = +this.route.snapshot.params['id'];
+    this.country$ = this.olympicService.getCountryById(this.countryId);
+    this.totalMedals = this.olympicService.getTotalMedals(this.countryId);
+    this.totalAthletes = this.olympicService.getTotalAthletes(this.countryId);
+    this.olympicService.getDetailsCountry(this.countryId).subscribe((data) => {
+      this.detailsCountry$ = [{
+        name: data.name,
+        series: data.series,
+      }];
+    });
+  }
   
+  legend: boolean = true;
+  showLabels: boolean = true;
+  animations: boolean = true;
+  xAxis: boolean = true;
+  yAxis: boolean = true;
+  showYAxisLabel: boolean = true;
+  showXAxisLabel: boolean = true;
+  xAxisLabel: string = 'Dates';
+  yAxisLabel: string = 'Medals';
+  timeline: boolean = true;
+  colorScheme = {
+    domain: ['#ff7296', '#6c11ff', '#8dc5ff', '#3bff1b', '#7e555f'],
+  };
+
+  onSelect(data: any): void {
+    console.log(this.olympicService.getCountryById(this.countryId).subscribe((country) => country.country));
+  }
+
+  onActivate(data: any): void {
+    console.log('Activate', JSON.parse(JSON.stringify(data)));
+  }
+
+  onDeactivate(data: any): void {
+    console.log('Deactivate', JSON.parse(JSON.stringify(data)));
   }
 }

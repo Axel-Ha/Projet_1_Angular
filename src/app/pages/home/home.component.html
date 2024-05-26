@@ -10,7 +10,7 @@
   </div>
   <ngx-charts-pie-chart
   [view]="[700, 400]"
-  [results]="single"
+  [results]="countryAndMedals"
   [scheme]="colorScheme"
   [legend]="showLegend"
   [gradient]="gradient"
@@ -18,8 +18,6 @@
   [labels]="showLabels"
   [doughnut]="isDoughnut"
   (select)="onSelect($event)"
-  (activate)="onActivate($event)"
-  (deactivate)="onDeactivate($event)"
 >
 </ngx-charts-pie-chart>
   <li *ngFor="let olympic of olympics$ | async">

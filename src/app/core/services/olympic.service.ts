@@ -49,7 +49,42 @@ export class OlympicService {
       })
     );
   }
+  getCountryByName(countryName : string ) : Observable<Olympic>{
+    return this.olympics$.pipe(
+      map((countries) => {
+        const country = countries.find((country) => country.country === countryName);
+        if (country) {
+          const updatedCountry = {
+            ...country,
+            numberOfParticipation: country.participations.length,
+          };
+          return updatedCountry;
+        }
+        return {
+          id: -1,
+          country: 'Not Found',
+          participations: [],
+          numberOfParticipation: 0,
+        }; 
+      })
+    );
+  }
 
+  getDetailsCountry(countryId: number): Observable<{ name: string; series: { name: string; value: number; }[]; }>{
+    return this.getCountryById(countryId).pipe(
+      map((country) => {
+        return {
+          name: country.country,
+          series: country.participations.map((participation) => {
+            return {
+              name: (participation.year).toString(),
+              value: participation.medalsCount,
+            };
+          }),
+        };
+      })
+    )
+  }
   getTotalMedals(countryId: number): Observable<number> {
     const currentCountry = this.getCountryById(countryId);
     return currentCountry.pipe(
@@ -61,7 +96,7 @@ export class OlympicService {
     );
   }
 
-  getTotalAthletes(countryId: number) {
+  getTotalAthletes(countryId: number): Observable<number> {
     const currentCountry = this.getCountryById(countryId);
     return currentCountry.pipe(
       map((country) => {
@@ -80,8 +115,7 @@ export class OlympicService {
     );
   }
 
-  // : Observable<{ name: string; value: Observable<number>}[]>
-  getCountryAndTotalMedals()  {
+  getCountryAndTotalMedals(): Observable<{ name: string; value: number }[]>{
     return this.olympics$.pipe(
       map((countries) => {
         return countries.map((country => {
@@ -95,8 +129,7 @@ export class OlympicService {
       }
     ));
   }
-
-
+  
   getOlympics(): Observable<Olympic[]> {
     return this.olympics$.asObservable();
   }
