@@ -3,7 +3,6 @@ import { Observable, of } from 'rxjs';
 import { OlympicService } from 'src/app/core/services/olympic.service';
 import { Olympic } from 'src/app/core/models/Olympic';
 import { ActivatedRoute, Router } from '@angular/router';
-
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -15,8 +14,7 @@ export class HomeComponent implements OnInit {
   public numberOfJOs$!: Observable<number[]>;
   public countryAndMedals!: {name: string; value: number;}[];
 
-  constructor(private olympicService: OlympicService,private route: ActivatedRoute, private router: Router) {}
-
+  constructor(private olympicService: OlympicService, private route: ActivatedRoute, private router: Router, ) {}
   ngOnInit(): void {
     this.olympics$ = this.olympicService.getOlympics();
     this.numberOfCountries$ = this.olympicService.getNumberOfCountries();
@@ -28,13 +26,14 @@ export class HomeComponent implements OnInit {
 
 
   // options for the chart
+  // view: [number, number] = [700, 400];
   gradient: boolean = true;
   showLegend: boolean = true;
   showLabels: boolean = true;
   isDoughnut: boolean = false;
   legendPosition: string = 'below';
   colorScheme = {
-    domain: ['#ff7296', '#6c11ff', '#8dc5ff', '#3bff1b','#7e555f'],
+    domain: ['#ff7296', '#6c11ff', '#8dc5ff', '#3aaf1b','#7e555f'],
   };
 
   onSelect(data: { name: string, value : number }): void {

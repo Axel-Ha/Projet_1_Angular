@@ -8,16 +8,16 @@
       Number of countries <span>{{ numberOfCountries$ | async }}</span>
     </p>
   </div>
-  <ngx-charts-pie-chart
-    [view]="[700, 400]"
-    [results]="countryAndMedals"
-    [scheme]="colorScheme"
-    [legend]="showLegend"
-    [gradient]="gradient"
-    [legendPosition]="legendPosition"
-    [labels]="showLabels"
-    [doughnut]="isDoughnut"
-    (select)="onSelect($event)"
-  >
-  </ngx-charts-pie-chart>
+    <ngx-charts-pie-chart
+      [view]="[700, 400]"
+      [results]="countryAndMedals"
+      [scheme]="colorScheme"
+      [legend]="showLegend"
+      [gradient]="gradient"
+      [legendPosition]="legendPosition"
+      [labels]="showLabels"
+      [doughnut]="isDoughnut"
+      (select)="onSelect($event)"
+    >
+    </ngx-charts-pie-chart>
 </div>
