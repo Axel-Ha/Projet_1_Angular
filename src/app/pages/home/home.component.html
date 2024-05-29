@@ -9,18 +9,15 @@
     </p>
   </div>
   <ngx-charts-pie-chart
-  [view]="[700, 400]"
-  [results]="countryAndMedals"
-  [scheme]="colorScheme"
-  [legend]="showLegend"
-  [gradient]="gradient"
-  [legendPosition]="legendPosition"
-  [labels]="showLabels"
-  [doughnut]="isDoughnut"
-  (select)="onSelect($event)"
->
-</ngx-charts-pie-chart>
-  <li *ngFor="let olympic of olympics$ | async">
-    <a routerLink="detail/{{ olympic.id }}">{{ olympic.country }}</a>
-  </li>
+    [view]="[700, 400]"
+    [results]="countryAndMedals"
+    [scheme]="colorScheme"
+    [legend]="showLegend"
+    [gradient]="gradient"
+    [legendPosition]="legendPosition"
+    [labels]="showLabels"
+    [doughnut]="isDoughnut"
+    (select)="onSelect($event)"
+  >
+  </ngx-charts-pie-chart>
 </div>

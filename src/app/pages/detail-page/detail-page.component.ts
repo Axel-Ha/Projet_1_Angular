@@ -47,16 +47,4 @@ export class DetailPageComponent implements OnInit {
   colorScheme = {
     domain: ['#ff7296', '#6c11ff', '#8dc5ff', '#3bff1b', '#7e555f'],
   };
-
-  onSelect(data: any): void {
-    console.log(this.olympicService.getCountryById(this.countryId).subscribe((country) => country.country));
-  }
-
-  onActivate(data: any): void {
-    console.log('Activate', JSON.parse(JSON.stringify(data)));
-  }
-
-  onDeactivate(data: any): void {
-    console.log('Deactivate', JSON.parse(JSON.stringify(data)));
-  }
 }
