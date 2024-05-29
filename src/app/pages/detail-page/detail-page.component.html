@@ -5,16 +5,15 @@
       Number of entries <span>{{ country.numberOfParticipation }}</span>
     </p>
     <p class="stat">
-      Total number medals <span>{{ totalMedals | async }}</span>
+      Total number medals <span>{{ totalMedals$ | async }}</span>
     </p>
     <p class="stat">
-      Total number of athletes <span>{{ totalAthletes | async }}</span>
+      Total number of athletes <span>{{ totalAthletes$ | async }}</span>
     </p>
-  </div>
-  <!-- mettre a 300 pour la version téléphone -->
-    <ngx-charts-line-chart
+  </div>  
+    <ngx-charts-line-chart 
     [view]="viewTab"
-    [results]="detailsCountry$"
+    [results]="detailsCountry$ | async"
     [scheme]="colorScheme"
     [showXAxisLabel]="showXAxisLabel"
     [showYAxisLabel]="showYAxisLabel"

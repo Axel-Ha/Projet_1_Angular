@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, observable, of } from 'rxjs';
 import { catchError, count, map, tap } from 'rxjs/operators';
-import { Olympic } from '../models/Olympic';
+import { Olympic, CountryDetails } from '../models/Olympic';
 
 @Injectable({
   providedIn: 'root',
@@ -24,7 +24,6 @@ export class OlympicService {
       })
     );
   }
-
   getNumberOfCountries(): Observable<number> {
     return this.olympics$.pipe(map((countries) => countries.length));
   }
@@ -70,7 +69,7 @@ export class OlympicService {
     );
   }
 
-  getDetailsCountry(countryId: number): Observable<{ name: string; series: { name: string; value: number; }[]; }>{
+  getDetailsCountry(countryId: number): Observable<CountryDetails>{
     return this.getCountryById(countryId).pipe(
       map((country) => {
         return {

@@ -1,6 +1,6 @@
 import { Component, OnInit, HostListener } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { OlympicService } from 'src/app/core/services/olympic.service';
+import { Observable, of , map} from 'rxjs';
+import { OlympicService,  } from 'src/app/core/services/olympic.service';
 import { Olympic } from 'src/app/core/models/Olympic';
 import { ActivatedRoute, Router } from '@angular/router';
 @Component({
@@ -12,8 +12,7 @@ export class HomeComponent implements OnInit {
   public olympics$: Observable<Olympic[]> = of([]);
   public numberOfCountries$!: Observable<number>;
   public numberOfJOs$!: Observable<number[]>;
-  public countryAndMedals!: {name: string; value: number;}[];
-  public deviceType !: string;
+  public countryAndMedals$!: Observable<{name: string; value: number;}[]>;
   public viewTab!: [number, number] 
 
   constructor(private olympicService: OlympicService, private route: ActivatedRoute, private router: Router) {
@@ -23,15 +22,11 @@ export class HomeComponent implements OnInit {
     this.olympics$ = this.olympicService.getOlympics();
     this.numberOfCountries$ = this.olympicService.getNumberOfCountries();
     this.numberOfJOs$ = this.olympicService.getNumberOfJOs();
-    this.olympicService.getCountryAndTotalMedals().subscribe((data) => {
-      this.countryAndMedals = data;
-    });
-
+    this.countryAndMedals$ = this.olympicService.getCountryAndTotalMedals().pipe(map((data : {name: string; value: number;}[]) => {
+       return data;
+    }))
   }
-    
-
-
-  checkDeviceType() {
+  checkDeviceType() : void {
     const width = window.innerWidth;
     if (width < 600) {
       this.viewTab = [400, 400];

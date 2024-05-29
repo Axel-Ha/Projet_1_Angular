@@ -15,3 +15,10 @@ export class Olympic{
     participations!: Participation[];
     numberOfParticipation?: number;
     }
+
+
+
+export interface CountryDetails { 
+    name: string; 
+    series: { name: string; value: number; }[];
+ }

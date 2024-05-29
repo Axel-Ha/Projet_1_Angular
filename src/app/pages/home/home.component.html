@@ -10,7 +10,7 @@
   </div>
     <ngx-charts-pie-chart
       [view]=viewTab
-      [results]="countryAndMedals"
+      [results]="countryAndMedals$ | async"
       [scheme]="colorScheme"
       [legend]="showLegend"
       [gradient]="gradient"
