@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { OlympicService } from 'src/app/core/services/olympic.service';
 import { Olympic } from 'src/app/core/models/Olympic';
@@ -13,8 +13,12 @@ export class HomeComponent implements OnInit {
   public numberOfCountries$!: Observable<number>;
   public numberOfJOs$!: Observable<number[]>;
   public countryAndMedals!: {name: string; value: number;}[];
+  public deviceType !: string;
+  public viewTab!: [number, number] 
 
-  constructor(private olympicService: OlympicService, private route: ActivatedRoute, private router: Router, ) {}
+  constructor(private olympicService: OlympicService, private route: ActivatedRoute, private router: Router) {
+    this.checkDeviceType();
+  }
   ngOnInit(): void {
     this.olympics$ = this.olympicService.getOlympics();
     this.numberOfCountries$ = this.olympicService.getNumberOfCountries();
@@ -22,11 +26,24 @@ export class HomeComponent implements OnInit {
     this.olympicService.getCountryAndTotalMedals().subscribe((data) => {
       this.countryAndMedals = data;
     });
+
+  }
+    
+
+
+  checkDeviceType() {
+    const width = window.innerWidth;
+    if (width < 600) {
+      this.viewTab = [400, 400];
+    } else if (width >= 600 && width < 1200) {
+      this.viewTab = [500, 400];
+    } else {
+      this.viewTab = [700, 500];
+    }
   }
 
-
   // options for the chart
-  // view: [number, number] = [700, 400];
+  view = this.viewTab
   gradient: boolean = true;
   showLegend: boolean = true;
   showLabels: boolean = true;

@@ -16,10 +16,13 @@ export class DetailPageComponent implements OnInit {
   public countryId!: number;
   public countryName!: string;
   public detailsCountry$!: { name: string; series: { name: string; value: number }[] }[];
+  public viewTab!: [number, number];
   constructor(
     private olympicService: OlympicService,
     private route: ActivatedRoute
-  ) {}
+  ) {
+    this.checkDeviceType();
+  }
 
   ngOnInit(): void {
     this.countryId = +this.route.snapshot.params['id'];
@@ -34,6 +37,20 @@ export class DetailPageComponent implements OnInit {
     });
   }
   
+
+  checkDeviceType() {
+    const width = window.innerWidth;
+    if (width < 600) {
+      this.viewTab = [500, 400];
+    } else if (width >= 600 && width < 1200) {
+      this.viewTab = [600, 400];
+    } else {
+      this.viewTab = [700, 500];
+    }
+  }
+
+  // options for the chart
+  view = this.viewTab;
   legend: boolean = true;
   showLabels: boolean = true;
   animations: boolean = true;
