@@ -10,9 +10,8 @@
     <p class="stat">
       Total number of athletes <span>{{ totalAthletes$ | async }}</span>
     </p>
-  </div>  
-    <ngx-charts-line-chart 
-    [view]="viewTab"
+  </div>
+  <ngx-charts-line-chart
     [results]="detailsCountry$ | async"
     [scheme]="colorScheme"
     [showXAxisLabel]="showXAxisLabel"
@@ -26,4 +25,3 @@
   </ngx-charts-line-chart>
   <a routerLink="">Go back</a>
 </div>
-

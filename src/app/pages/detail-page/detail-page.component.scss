@@ -2,6 +2,29 @@
 .container{
     margin-bottom: 0px;
     .stat-box{
-        width: 30%; /* Control width of the stat box */
+        width: 40%; /* Control width of the stat box */
     }
 }
+
+
+@media (max-width: 599px)  {
+    .container{
+        align-items: center;
+        .stat-box{
+            justify-content: center;
+            width: 100%;
+        }
+    }
+}
+
+
+@media (min-width: 600px) and (max-width: 1199px)  {
+    .container{
+        align-items: center;
+        .stat-box{
+            justify-content: center;
+            width: 100%;
+        }
+    }
+}
+

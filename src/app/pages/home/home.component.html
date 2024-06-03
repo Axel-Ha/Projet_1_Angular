@@ -8,16 +8,15 @@
       Number of countries <span>{{ numberOfCountries$ | async }}</span>
     </p>
   </div>
+  <div class="ngxCharts-parent">
     <ngx-charts-pie-chart
-      [view]=viewTab
       [results]="countryAndMedals$ | async"
       [scheme]="colorScheme"
-      [legend]="showLegend"
       [gradient]="gradient"
-      [legendPosition]="legendPosition"
       [labels]="showLabels"
       [doughnut]="isDoughnut"
       (select)="onSelect($event)"
     >
     </ngx-charts-pie-chart>
+  </div>
 </div>

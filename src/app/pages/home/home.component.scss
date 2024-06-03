@@ -1,0 +1,36 @@
+.container {
+  height: 100%;
+
+  .ngxCharts-parent {
+    width: 1000px;
+    height: 1000px;
+  }
+}
+
+@media (max-width: 600px) {
+  .container {
+    align-items: center;
+    .ngxCharts-parent {
+      width: 400px;
+      height: 300px;
+    }
+    .stat-box {
+      justify-content: center;
+      width: 100%;
+    }
+  }
+}
+
+@media (min-width: 601px) and (max-width: 1200px) {
+  .container {
+    align-items: center;
+    .ngxCharts-parent {
+      width: 500px;
+      height: 400px;
+    }
+    .stat-box {
+      justify-content: center;
+      width: 100%;
+    }
+  }
+}

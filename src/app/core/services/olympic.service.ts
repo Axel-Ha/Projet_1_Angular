@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, observable, of } from 'rxjs';
-import { catchError, count, map, tap } from 'rxjs/operators';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { catchError, map, tap } from 'rxjs/operators';
 import { Olympic, CountryDetails } from '../models/Olympic';
+import { Participation } from '../models/Participation';
 
 @Injectable({
   providedIn: 'root',
@@ -48,10 +49,12 @@ export class OlympicService {
       })
     );
   }
-  getCountryByName(countryName : string ) : Observable<Olympic>{
+  getCountryByName(countryName: string): Observable<Olympic> {
     return this.olympics$.pipe(
       map((countries) => {
-        const country = countries.find((country) => country.country === countryName);
+        const country = countries.find(
+          (country) => country.country === countryName
+        );
         if (country) {
           const updatedCountry = {
             ...country,
@@ -64,26 +67,31 @@ export class OlympicService {
           country: 'Not Found',
           participations: [],
           numberOfParticipation: 0,
-        }; 
+        };
       })
     );
   }
 
-  getDetailsCountry(countryId: number): Observable<CountryDetails>{
+  getDetailsCountry(countryId: number): Observable<CountryDetails> {
     return this.getCountryById(countryId).pipe(
       map((country) => {
         return {
           name: country.country,
-          series: country.participations.map((participation) => {
-            return {
-              name: (participation.year).toString(),
-              value: participation.medalsCount,
-            };
-          }),
+          series: this.getYearsAndMedals(country.participations),
         };
       })
-    )
+    );
   }
+
+  getYearsAndMedals(country : Participation[]){
+    return country.map((participation) => {
+      return {
+        name: participation.year.toString(),
+        value: participation.medalsCount,
+      };
+    })
+  }
+  
   getTotalMedals(countryId: number): Observable<number> {
     const currentCountry = this.getCountryById(countryId);
     return currentCountry.pipe(
@@ -114,21 +122,24 @@ export class OlympicService {
     );
   }
 
-  getCountryAndTotalMedals(): Observable<{ name: string; value: number }[]>{
+  getCountryAndTotalMedals(): Observable<{ name: string; value: number }[]> {
     return this.olympics$.pipe(
       map((countries) => {
-        return countries.map((country => {
+        return countries.map((country) => {
           return {
             name: country.country,
-            value: country.participations.reduce((totalMedals, participation) => {
-              return totalMedals + participation.medalsCount;
-            }, 0)
-          }
-        }))
-      }
-    ));
+            value: country.participations.reduce(
+              (totalMedals, participation) => {
+                return totalMedals + participation.medalsCount;
+              },
+              0
+            ),
+          };
+        });
+      })
+    );
   }
-  
+
   getOlympics(): Observable<Olympic[]> {
     return this.olympics$.asObservable();
   }
