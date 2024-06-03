@@ -12,9 +12,9 @@
     <ngx-charts-pie-chart
       [results]="countryAndMedals$ | async"
       [scheme]="colorScheme"
-      [gradient]="gradient"
-      [labels]="showLabels"
-      [doughnut]="isDoughnut"
+      [gradient]="true"
+      [labels]="true"
+      [doughnut]="false"
       (select)="onSelect($event)"
     >
     </ngx-charts-pie-chart>

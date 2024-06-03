@@ -83,15 +83,15 @@ export class OlympicService {
     );
   }
 
-  getYearsAndMedals(country : Participation[]){
+  getYearsAndMedals(country: Participation[]) {
     return country.map((participation) => {
       return {
         name: participation.year.toString(),
         value: participation.medalsCount,
       };
-    })
+    });
   }
-  
+
   getTotalMedals(countryId: number): Observable<number> {
     const currentCountry = this.getCountryById(countryId);
     return currentCountry.pipe(

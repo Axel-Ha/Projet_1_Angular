@@ -15,13 +15,10 @@
     <ngx-charts-line-chart
       [results]="detailsCountry$ | async"
       [scheme]="colorScheme"
-      [showXAxisLabel]="showXAxisLabel"
-      [showYAxisLabel]="showYAxisLabel"
-      [xAxis]="xAxis"
-      [yAxis]="yAxis"
-      [xAxisLabel]="xAxisLabel"
-      [yAxisLabel]="yAxisLabel"
-      [timeline]="timeline"
+      showYAxisLabel="Medals"
+      xAxis="xAxis"
+      yAxis="yAxis"
+      yAxisLabel="Medals"
     >
     </ngx-charts-line-chart>
     <a routerLink="">Go back</a>

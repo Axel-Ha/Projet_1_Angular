@@ -15,10 +15,7 @@ export class HomeComponent implements OnInit {
   public countryAndMedals$!: Observable<{ name: string; value: number }[]>;
   public viewTab!: [number, number];
 
-  // options for the chart
-  public gradient = true;
-  public showLabels = true;
-  public isDoughnut = false;
+  // option for the chart
   public colorScheme = {
     domain: ['#ff7296', '#6c11ff', '#8dc5ff', '#3aaf1b', '#7e555f'],
   };

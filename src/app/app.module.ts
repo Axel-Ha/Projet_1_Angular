@@ -9,12 +9,19 @@ import { DetailPageComponent } from './pages/detail-page/detail-page.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-
 @NgModule({
-  declarations: [AppComponent, HomeComponent, NotFoundComponent, DetailPageComponent],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule, 
+  declarations: [
+    AppComponent,
+    HomeComponent,
+    NotFoundComponent,
+    DetailPageComponent,
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
     NgxChartsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

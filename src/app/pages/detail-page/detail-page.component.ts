@@ -17,17 +17,9 @@ export class DetailPageComponent implements OnInit {
   public detailsCountry$!: Observable<CountryDetails[]>;
   public viewTab!: [number, number];
 
-  public showLabels = true;
-  public animations = true;
-  public xAxis = true;
-  public yAxis = true;
-  public showYAxisLabel = true;
-  public showXAxisLabel = true;
-  public xAxisLabel = 'Dates';
-  public yAxisLabel = 'Medals';
-  public timeline = true;
+  // option for the chart
   public colorScheme = {
-    domain: ['#ff7296', '#6c11ff', '#8dc5ff', '#3bff1b', '#7e555f'],
+    domain: ['#ff7296'],
   };
 
   constructor(
