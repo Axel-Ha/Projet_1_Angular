@@ -1,6 +1,6 @@
 <!-- Utilisation d'async pour souscrire à l'observable et extraire les données -->
 <ng-container *ngIf="country$ | async as country">
-  <div *ngIf="country.id === -1">
+  <div class="container-not-found" *ngIf="country.id === -1">
     <h2>Country not found</h2>
     <a routerLink="/">Go back</a>
   </div>
