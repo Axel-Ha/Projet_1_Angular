@@ -1,26 +1,33 @@
-<div class="container" *ngIf="country$ | async as country">
-  <h2>Country {{ country.country }}</h2>
-  <div class="stat-box">
-    <p class="stat">
-      Number of entries <span>{{ country.numberOfParticipation }}</span>
-    </p>
-    <p class="stat">
-      Total number medals <span>{{ totalMedals$ | async }}</span>
-    </p>
-    <p class="stat">
-      Total number of athletes <span>{{ totalAthletes$ | async }}</span>
-    </p>
+<!-- Utilisation d'async pour souscrire à l'observable et extraire les données -->
+<ng-container *ngIf="country$ | async as country">
+  <div *ngIf="country.id === -1">
+    <h2>Country not found</h2>
+    <a routerLink="/">Go back</a>
   </div>
-  <div class="ngxCharts-parent">
-    <ngx-charts-line-chart
-      [results]="detailsCountry$ | async"
-      [scheme]="colorScheme"
-      showYAxisLabel="Medals"
-      xAxis="xAxis"
-      yAxis="yAxis"
-      yAxisLabel="Medals"
-    >
-    </ngx-charts-line-chart>
+  <div class="container" *ngIf="country.id !== -1">
+    <h2>Country {{ country.country }}</h2>
+    <div class="stat-box">
+      <p class="stat">
+        Number of entries <span>{{ country.numberOfParticipation }}</span>
+      </p>
+      <p class="stat">
+        Total number medals <span>{{ totalMedals$ | async }}</span>
+      </p>
+      <p class="stat">
+        Total number of athletes <span>{{ totalAthletes$ | async }}</span>
+      </p>
+    </div>
+    <div class="ngxCharts-parent">
+      <ngx-charts-line-chart
+        [results]="detailsCountry$ | async"
+        [scheme]="colorScheme"
+        showYAxisLabel="Medals"
+        xAxis="xAxis"
+        yAxis="yAxis"
+        yAxisLabel="Medals"
+      >
+      </ngx-charts-line-chart>
+    </div>
     <a routerLink="">Go back</a>
   </div>
-</div>
+</ng-container>
