@@ -1,0 +1,24 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 20px;
+  background-color: #003366;
+  color: white;
+
+  .logo img {
+    width: 100px; /* Ajustez la taille selon vos besoins */
+  }
+}
+
+@media (max-width: 599px) {
+  .header {
+    .logo img {
+      width: 70px;
+    }
+  }
+}
+
+@media (min-width: 600px) and (max-width: 1199px) {
+  .header {
+  }
+}

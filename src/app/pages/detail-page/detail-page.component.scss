@@ -7,10 +7,12 @@
 }
 
 .container {
-  margin-bottom: 0px;
+  margin-bottom: 20px;
+
   .stat-box {
     width: 40%; /* Control width of the stat box */
   }
+
   .ngxCharts-parent {
     width: 1000px;
     height: 600px;
@@ -22,31 +24,35 @@
     margin: 10px;
     padding: 10px;
     align-items: center;
-    .stat-box {
-      justify-content: center;
-      width: 100%;
-    }
-    .ngxCharts-parent {
-      width: 400px;
-      height: 300px;
-    }
+    .stat-box,
+    .ngxCharts-parent,
     a {
-      margin: 10px;
-      padding: 10px;
+      width: 100%;
+      justify-content: center;
+    }
+
+    .ngxCharts-parent {
+      height: 300px;
+      width: 400px;
     }
   }
 }
 
 @media (min-width: 600px) and (max-width: 1199px) {
   .container {
+    display: flex;
+    flex-direction: column;
     align-items: center;
-    .stat-box {
-      justify-content: center;
+
+    .stat-box,
+    .ngxCharts-parent,
+    a {
       width: 100%;
+      justify-content: center;
     }
     .ngxCharts-parent {
-      width: 700px;
-      height: 500px;
+      height: 400px;
+      width: 500px;
     }
   }
 }
