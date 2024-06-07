@@ -10,6 +10,7 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HeaderComponent } from './pages/header/header.component';
 import { FooterComponent } from './pages/footer/footer.component';
+import { NgxChartsComponent } from './ngx-charts/ngx-charts.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { FooterComponent } from './pages/footer/footer.component';
     DetailPageComponent,
     HeaderComponent,
     FooterComponent,
+    NgxChartsComponent,
   ],
   imports: [
     BrowserModule,

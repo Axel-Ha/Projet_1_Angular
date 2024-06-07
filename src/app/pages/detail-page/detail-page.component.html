@@ -17,17 +17,10 @@
         Total number of athletes <span>{{ totalAthletes$ | async }}</span>
       </p>
     </div>
-    <div class="ngxCharts-parent">
-      <ngx-charts-line-chart
-        [results]="detailsCountry$ | async"
-        [scheme]="colorScheme"
-        showYAxisLabel="Medals"
-        xAxis="xAxis"
-        yAxis="yAxis"
-        yAxisLabel="Medals"
-      >
-      </ngx-charts-line-chart>
-    </div>
+      <app-ngx-charts
+        [dataDetailsCountry$]="detailsCountry$"
+        [whatIsIt]="'line-chart'"
+      ></app-ngx-charts>
     <a routerLink="">Go back</a>
   </div>
 </ng-container>

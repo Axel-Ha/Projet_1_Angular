@@ -9,14 +9,6 @@
     </p>
   </div>
   <div class="ngxCharts-parent">
-    <ngx-charts-pie-chart
-      [results]="countryAndMedals$ | async"
-      [scheme]="colorScheme"
-      [gradient]="true"
-      [labels]="true"
-      [doughnut]="false"
-      (select)="onSelect($event)"
-    >
-    </ngx-charts-pie-chart>
+    <app-ngx-charts [dataCountries$]="countryAndMedals$" [whatIsIt]="'pie-chart'"></app-ngx-charts>
   </div>
 </div>
