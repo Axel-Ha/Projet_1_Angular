@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { CountryDetails, Olympic } from 'src/app/core/models/Olympic';
 import { Router } from '@angular/router';
 import { Observable, of, Subscription } from 'rxjs';
-import { OlympicService } from '../core/services/olympic.service';
+import { OlympicService } from '../../core/services/olympic.service';
 
 @Component({
   selector: 'app-ngx-charts',
