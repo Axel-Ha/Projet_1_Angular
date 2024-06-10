@@ -39,7 +39,7 @@ export class DetailPageComponent implements OnInit {
    * Méthode appelée à l'initialisation du composant.
    * On récupère les données du pays, le nombre de médailles, le nombre d'athlètes et les informations du pays.
    * On les stocke dans des variables pour les afficher dans le template.
-   * On ajoute les observables à `subscriptions`.
+   * On abonne les observables à `subscriptions`.
    * @returns void
    */
   ngOnInit(): void {
