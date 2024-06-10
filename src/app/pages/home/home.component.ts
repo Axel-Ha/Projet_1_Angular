@@ -16,6 +16,12 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   constructor(private olympicService: OlympicService) {}
 
+  /**
+   * Méthode appelée à l'initialisation du composant.
+   * On récupère les données des pays, le nombre de pays, le nombre de JO et les pays et le nombre de médailles.
+   * On les stocke dans des variables pour les afficher dans le template.
+   * @returns void
+   */
   ngOnInit(): void {
     this.olympics$ = this.olympicService.getOlympics(); // On récupère les données des pays.
     this.numberOfCountries$ = this.olympicService.getNumberOfCountries(); // On récupère le nombre de pays.
