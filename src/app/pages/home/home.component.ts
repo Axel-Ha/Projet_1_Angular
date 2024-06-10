@@ -2,7 +2,8 @@ import { Component, OnInit, HostListener, OnDestroy } from '@angular/core';
 import { Observable, of, map } from 'rxjs';
 import { OlympicService } from 'src/app/core/services/olympic.service';
 import { Olympic } from 'src/app/core/models/Olympic';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -14,22 +15,60 @@ export class HomeComponent implements OnInit, OnDestroy {
   public numberOfJOs$!: Observable<number[]>;
   public countryAndMedals$!: Observable<{ name: string; value: number }[]>;
 
+  private subscriptions: Subscription = new Subscription();
+
+  /**
+   * Constructeur du composant.
+   * @param olympicService Service permettant de récupérer les données des JO.
+   * @returns void
+   */
   constructor(private olympicService: OlympicService) {}
 
   /**
    * Méthode appelée à l'initialisation du composant.
    * On récupère les données des pays, le nombre de pays, le nombre de JO et les pays et le nombre de médailles.
    * On les stocke dans des variables pour les afficher dans le template.
+   * On abonne les observables à `subscriptions`.
    * @returns void
    */
   ngOnInit(): void {
-    this.olympics$ = this.olympicService.getOlympics(); // On récupère les données des pays.
-    this.numberOfCountries$ = this.olympicService.getNumberOfCountries(); // On récupère le nombre de pays.
-    this.numberOfJOs$ = this.olympicService.getNumberOfJOs(); // On récupère le nombre de JO.
-    this.countryAndMedals$ = this.loadCountriesMedals(); // On récupère les pays et le nombre de médailles.
+    this.subscriptions.add(
+      // On récupère les données des pays.
+      this.olympicService.getOlympics().subscribe((data) => {
+        this.olympics$ = of(data);
+      })
+    );
+
+    this.subscriptions.add(
+      // On récupère le nombre de pays.
+      this.olympicService.getNumberOfCountries().subscribe((data) => {
+        this.numberOfCountries$ = of(data);
+      })
+    );
+
+    this.subscriptions.add(
+      // On récupère le nombre de JO.
+      this.olympicService.getNumberOfJOs().subscribe((data) => {
+        this.numberOfJOs$ = of(data);
+      })
+    );
+
+    this.subscriptions.add(
+      // On récupère les pays et le nombre de médailles.
+      this.loadCountriesMedals().subscribe((data) => {
+        this.countryAndMedals$ = of(data);
+      })
+    );
   }
 
-  ngOnDestroy(): void {}
+  /**
+   * Méthode appelée à la destruction du composant.
+   * On annule tous les abonnements ajoutés à `subscriptions`.
+   * @returns void
+   */
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
+  }
 
   /**
    * Return les pays et le nombre de médailles.
