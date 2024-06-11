@@ -11,16 +11,14 @@
     </ngx-charts-pie-chart>
   </ng-container>
   <ng-container *ngIf="whatIsIt == 'line-chart'">
-    <div class="ngxCharts-parent">
-      <ngx-charts-line-chart
-        [results]="dataDetailsCountry$ | async"
-        [scheme]="colorScheme"
-        showYAxisLabel="Medals"
-        xAxis="xAxis"
-        yAxis="yAxis"
-        yAxisLabel="Medals"
-      >
-      </ngx-charts-line-chart>
-    </div>
+    <ngx-charts-line-chart
+      [results]="dataDetailsCountry$ | async"
+      [scheme]="colorScheme"
+      showYAxisLabel="Medals"
+      xAxis="xAxis"
+      yAxis="yAxis"
+      yAxisLabel="Medals"
+    >
+    </ngx-charts-line-chart>
   </ng-container>
 </div>
