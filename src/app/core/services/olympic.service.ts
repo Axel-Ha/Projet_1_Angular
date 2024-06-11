@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { Olympic, CountryDetails } from '../models/Olympic';
 import { Participation } from '../models/Participation';
@@ -22,10 +22,8 @@ export class OlympicService {
   loadInitialData() {
     return this.http.get<Olympic[]>(this.olympicUrl).pipe(
       tap((value) => this.olympics$.next(value)),
-      catchError((error, caught) => {
-        console.error(error);
-        this.olympics$.next([]); // En cas d'erreur, émet un tableau vide pour signaler un problème
-        return caught;
+      catchError((error) => {
+        return throwError(() => error);
       })
     );
   }

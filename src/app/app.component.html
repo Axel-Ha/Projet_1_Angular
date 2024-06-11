@@ -1,3 +1,6 @@
 <app-header></app-header>
-<router-outlet></router-outlet>
+<router-outlet *ngIf="!error"></router-outlet>
+<div *ngIf="error" class="error-message">
+  <h1>Une erreur est survenue pendant la récupération des données</h1>
+</div>
 <app-footer></app-footer>

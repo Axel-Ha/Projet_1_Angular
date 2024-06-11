@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Observable, of, map } from 'rxjs';
 import { OlympicService } from 'src/app/core/services/olympic.service';
 import { Olympic } from 'src/app/core/models/Olympic';
@@ -26,12 +26,28 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   /**
    * Méthode appelée à l'initialisation du composant.
-   * On récupère les données des pays, le nombre de pays, le nombre de JO et les pays et le nombre de médailles.
-   * On les stocke dans des variables pour les afficher dans le template.
-   * On abonne les observables à `subscriptions`.
+   * On appelle la méthode `initialisation`.
    * @returns void
    */
   ngOnInit(): void {
+    this.initialisation();
+  }
+  /**
+   * Méthode appelée à la destruction du composant.
+   * On annule tous les abonnements ajoutés à `subscriptions`.
+   * @returns void
+   */
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
+  }
+
+  /**
+   * Initialisation du composant.
+   * On récupère les données des pays, le nombre de pays, le nombre de JO et les pays et le nombre de médailles.
+   * On abonne les observables à `subscriptions`.
+   * @returns void
+   */
+  private initialisation(): void {
     this.subscriptions.add(
       // On récupère les données des pays.
       this.olympicService.getOlympics().subscribe((data) => {
@@ -59,15 +75,6 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.countryAndMedals$ = of(data);
       })
     );
-  }
-
-  /**
-   * Méthode appelée à la destruction du composant.
-   * On annule tous les abonnements ajoutés à `subscriptions`.
-   * @returns void
-   */
-  ngOnDestroy(): void {
-    this.subscriptions.unsubscribe();
   }
 
   /**
