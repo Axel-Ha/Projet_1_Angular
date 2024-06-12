@@ -10,7 +10,7 @@ import { Participation } from '../models/Participation';
 })
 export class OlympicService {
   private olympicUrl = './assets/mock/olympic.json';
-  private olympics$ = new BehaviorSubject<Olympic[]>([]); // BehaviorSubject contenant un tableau d'objets Olympic
+  private olympics$ = new BehaviorSubject<Olympic[]>([]); // BehaviorSubject contenant un tableau d'objets Olympic.
   constructor(private http: HttpClient) {}
 
   /**
@@ -20,8 +20,9 @@ export class OlympicService {
    * @returns Observable contenant un tableau d'objets Olympic.
    */
   loadInitialData() {
+    // Initialisation d'une requête HTTP pour récupérer les données olympiques
     return this.http.get<Olympic[]>(this.olympicUrl).pipe(
-      tap((value) => this.olympics$.next(value)),
+      tap((value) => this.olympics$.next(value)), // Met à jour le BehaviorSubject (olympics$) avec les données reçues
       catchError((error) => {
         return throwError(() => error);
       })
