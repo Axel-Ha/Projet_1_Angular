@@ -23,23 +23,24 @@ export class NgxChartsComponent implements OnInit {
   public colorScheme = {
     domain: ['#ff7296', '#6c11ff', '#8dc5ff', '#3aaf1b', '#7e555f'],
   };
+
   /**
-   * Constructeur du composant.
-   * @param olympicService Service permettant de récupérer les données des JO.
-   * @param router Service permettant de naviguer vers une autre page.
+   * Constructor of the HomeComponent.
+   * @param olympicService Service to get the data of the countries.
+   * @param route to get the parameters of the URL.
    * @returns void
    */
   constructor(private olympicService: OlympicService, private router: Router) {}
 
   /**
-   * Méthode appelée à l'initialisation du composant.
-   * On récupère les données du pays.
-   * On abonne l'observables à `subscription`.
+   * Function called when the component is initialized.
+   * Get the data of the countries.
+   * Observable is added to the subscriptions.
    * @returns void
    */
   ngOnInit(): void {
     this.subscription.add(
-      // On récupère les données des pays.
+      // Get the data of the countries
       this.olympicService.getOlympics().subscribe((data) => {
         this.olympics$ = of(data);
       })
@@ -47,8 +48,8 @@ export class NgxChartsComponent implements OnInit {
   }
 
   /**
-   * Méthode appelée à la destruction du composant.
-   * On annule tous les abonnements ajoutés à `subscriptions`.
+   * Function called when the component is destroyed.
+   * We unsubscribe to the observables.
    * @returns void
    */
   ngOnDestroy(): void {
@@ -56,8 +57,8 @@ export class NgxChartsComponent implements OnInit {
   }
 
   /**
-   * Redirige vers la page de détail du pays.
-   * @param data Données du pays.
+   * Redirect to the detail page of the country.
+   * @param data data of the country.
    * @returns void
    */
   onSelect(data: { name: string; value: number }): void {

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, of, map } from 'rxjs';
 import { Olympic, CountryDetails } from 'src/app/core/models/Olympic';
@@ -25,9 +25,9 @@ export class DetailPageComponent implements OnInit {
   };
 
   /**
-   * Constructeur du composant.
-   * @param olympicService Service permettant de récupérer les données des JO.
-   * @param route Service permettant de récupérer les paramètres de la route.
+   * Constructor of the HomeComponent.
+   * @param olympicService Service to get the data of the countries.
+   * @param route to get the parameters of the URL.
    * @returns void
    */
   constructor(
@@ -36,36 +36,49 @@ export class DetailPageComponent implements OnInit {
   ) {}
 
   /**
-   * Méthode appelée à l'initialisation du composant.
-   * On récupère les données du pays, le nombre de médailles, le nombre d'athlètes et les informations du pays.
-   * On les stocke dans des variables pour les afficher dans le template.
-   * On abonne les observables à `subscriptions`.
+   * Function called when the component is initialized.
+   * We call the initialisation function.
    * @returns void
    */
   ngOnInit(): void {
     const countryId = +this.route.snapshot.params['id'];
 
+    this.initialisation(countryId);
+  }
+  /**
+   * Function called when the component is destroyed.
+   * We unsubscribe to the observables.
+   * @returns void
+   */
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
+  }
+
+  /**
+   * Initialisation of the component.
+   * Getting the data of the countries, the number of countries, the number of JOs and the countries and the number of medals.
+   * We subscribe to the observables returned by the functions.
+   * @returns void
+   */
+  private initialisation(countryId: number) {
     this.subscriptions.add(
-      // On récupère les données du pays.
+      // We subscribe to the observable returned by the getOlympics function.
       this.olympicService.getCountryById(countryId).subscribe((data) => {
-        this.country$ = of(data);
+        this.country$ = of(data); //of operator converts the data to an observable.
       })
     );
     this.subscriptions.add(
-      // On récupère le nombre de médailles.
       this.olympicService.getTotalMedals(countryId).subscribe((data) => {
         this.totalMedals$ = of(data);
       })
     );
     this.subscriptions.add(
-      // On récupère le nombre d'athlètes.
       this.olympicService.getTotalAthletes(countryId).subscribe((data) => {
         this.totalAthletes$ = of(data);
       })
     );
 
     this.subscriptions.add(
-      // On récupère les informations du pays.
       this.loadDetailsCountry(countryId).subscribe((data) => {
         this.detailsCountry$ = of(data);
       })
@@ -74,23 +87,14 @@ export class DetailPageComponent implements OnInit {
   }
 
   /**
-   * Méthode appelée à la destruction du composant.
-   * On annule tous les abonnements ajoutés à `subscriptions`.
-   * @returns void
-   */
-  ngOnDestroy(): void {
-    this.subscriptions.unsubscribe();
-  }
-
-  /**
-   * Return les informations du pays.
-   * @param countryId Id du pays.
-   * @returns Observable contenant les informations du pays.
+   * Return country information.
+   * @param countryId Id of the country.
+   * @returns Observable having the country information.
    */
   private loadDetailsCountry(countryId: number): Observable<CountryDetails[]> {
     return this.olympicService.getDetailsCountry(countryId).pipe(
       map((data: CountryDetails) => {
-        // On renvoie les données telles quelles pour les afficher dans le graphique.
+        //Data we get from the getDetailsCountry function, we return them as they are to display them in the chart.
         return [data];
       })
     );

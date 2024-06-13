@@ -18,23 +18,23 @@ export class HomeComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription = new Subscription();
 
   /**
-   * Constructeur du composant.
-   * @param olympicService Service permettant de récupérer les données des JO.
+   * Constructor of the HomeComponent.
+   * @param olympicService Service to get the data of the countries.
    * @returns void
    */
   constructor(private olympicService: OlympicService) {}
 
   /**
-   * Méthode appelée à l'initialisation du composant.
-   * On appelle la méthode `initialisation`.
+   * Function called when the component is initialized.
+   * We call the initialisation function.
    * @returns void
    */
   ngOnInit(): void {
     this.initialisation();
   }
   /**
-   * Méthode appelée à la destruction du composant.
-   * On annule tous les abonnements ajoutés à `subscriptions`.
+   * Function called when the component is destroyed.
+   * We unsubscribe to the observables.
    * @returns void
    */
   ngOnDestroy(): void {
@@ -42,49 +42,48 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Initialisation du composant.
-   * On récupère les données des pays, le nombre de pays, le nombre de JO et les pays et le nombre de médailles.
-   * On abonne les observables à `subscriptions`.
+   * Initialisation of the component.
+   * Getting the data of the countries, the number of countries, the number of JOs and the countries and the number of medals.
+   * We subscribe to the observables returned by the functions.
    * @returns void
    */
   private initialisation(): void {
     this.subscriptions.add(
-      // On récupère les données des pays.
+      // We subscribe to the observable returned by the getOlympics function.
       this.olympicService.getOlympics().subscribe((data) => {
-        this.olympics$ = of(data);
+        this.olympics$ = of(data); //of operator converts the data to an observable.
       })
     );
 
     this.subscriptions.add(
-      // On récupère le nombre de pays.
       this.olympicService.getNumberOfCountries().subscribe((data) => {
         this.numberOfCountries$ = of(data);
       })
     );
 
     this.subscriptions.add(
-      // On récupère le nombre de JO.
       this.olympicService.getNumberOfJOs().subscribe((data) => {
         this.numberOfJOs$ = of(data);
       })
     );
 
     this.subscriptions.add(
-      // On récupère les pays et le nombre de médailles.
-      this.loadCountriesMedals().subscribe((data) => {
+      this.loadCountriesAndMedals().subscribe((data) => {
         this.countryAndMedals$ = of(data);
       })
     );
   }
 
   /**
-   * Return les pays et le nombre de médailles.
-   * @returns Observable contenant les pays et le nombre de médailles.
+   * Load the countries and the number of medals.
+   * @returns Observable having the countries and the number of medals.
    */
-  private loadCountriesMedals(): Observable<{ name: string; value: number }[]> {
+  private loadCountriesAndMedals(): Observable<
+    { name: string; value: number }[]
+  > {
     return this.olympicService.getCountryAndTotalMedals().pipe(
       map((data: { name: string; value: number }[]) => {
-        //Données qu'on récupère de la faction getCountryAndTotalMedals, on les renvoie telles quelles pour les afficher dans le graphique.
+        //Data we get from the getCountryAndTotalMedals function, we return them as they are to display them in the chart.
         return data;
       })
     );
