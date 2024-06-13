@@ -1,0 +1,14 @@
+<div>
+  <h2>Country {{ countryName }}</h2>
+  <div class="stat-box">
+    <p class="stat">
+      Number of entries <span>{{ totalEntries }}</span>
+    </p>
+    <p class="stat">
+      Total number medals <span>{{ totalMedals$ | async }}</span>
+    </p>
+    <p class="stat">
+      Total number of athletes <span>{{ totalAthletes$ | async }}</span>
+    </p>
+  </div>
+</div>

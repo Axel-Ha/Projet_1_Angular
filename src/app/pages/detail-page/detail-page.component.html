@@ -5,18 +5,12 @@
     <a routerLink="/">Go back</a>
   </div>
   <div class="container" *ngIf="country.id !== -1">
-    <h2>Country {{ country.country }}</h2>
-    <div class="stat-box">
-      <p class="stat">
-        Number of entries <span>{{ country.participations.length }}</span>
-      </p>
-      <p class="stat">
-        Total number medals <span>{{ totalMedals$ | async }}</span>
-      </p>
-      <p class="stat">
-        Total number of athletes <span>{{ totalAthletes$ | async }}</span>
-      </p>
-    </div>
+    <app-stats-country
+      [countryName]="country.country"
+      [totalMedals$]="totalMedals$"
+      [totalAthletes$]="totalAthletes$"
+      [totalEntries]="country.participations.length"
+    ></app-stats-country>
     <div class="ngxCharts-parent">
       <app-ngx-charts
         [dataDetailsCountry$]="detailsCountry$"
