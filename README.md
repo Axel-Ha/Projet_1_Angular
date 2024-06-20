@@ -1,4 +1,4 @@
-# OlympicGamesStarter
+# OlympicGames
 
 Ce projet est une application Angular conçue pour présenter des informations sur les performances olympiques des pays en termes de médailles gagnées. Il se compose de deux composants principaux qui visualisent les données à travers des graphiques interactifs.
 
